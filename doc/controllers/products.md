@@ -37,7 +37,7 @@ def search_products(self,
 ## Example Usage
 
 ```python
-q = 'gifts for trail runners under $60'
+q = 'trail running vest'
 
 result = products_api.search_products(q)
 print(result)
@@ -67,6 +67,6 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 

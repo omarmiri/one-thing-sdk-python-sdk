@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class Detail(object):
     """Implementation of the 'Detail' model.
 
+    One product fact.
+
     Attributes:
-        label (str): The model property of type str.
-        value (str): The model property of type str.
+        label (str): What the fact is about.
+        value (str): The fact.
 
     """
 

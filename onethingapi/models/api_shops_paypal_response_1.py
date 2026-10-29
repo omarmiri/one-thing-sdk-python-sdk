@@ -10,9 +10,12 @@ from onethingapi.api_helper import APIHelper
 class ApiShopsPaypalResponse1(object):
     """Implementation of the 'Api Shops Paypal Response1' model.
 
+    The shop's PayPal connection.
+
     Attributes:
         merchant_id (str): The seller's PayPal merchant id.
-        status (PayPalStatus | None): The model property of type PayPalStatus | None.
+        status (PayPalStatus | None): What PayPal last said; null when nothing is
+            connected.
 
     """
 

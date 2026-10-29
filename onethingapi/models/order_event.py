@@ -13,10 +13,12 @@ from onethingapi.models.shop_1 import Shop1
 class OrderEvent(object):
     """Implementation of the 'OrderEvent' model.
 
+    What OneThing posts to the seller's Zapier hook.
+
     Attributes:
-        event (Event): The model property of type Event.
-        shop (Shop1): The model property of type Shop1.
-        order (Order1): The model property of type Order1.
+        event (Event): What happened.
+        shop (Shop1): The shop the order belongs to.
+        order (Order1): The order.
 
     """
 

@@ -20,8 +20,8 @@ from onethingapi.configuration import Server
 from onethingapi.exceptions.api_shops_orders_refund_409_error_exception import (
     ApiShopsOrdersRefund409ErrorException,
 )
-from onethingapi.exceptions.error_exception import (
-    ErrorException,
+from onethingapi.exceptions.error_response_exception import (
+    ErrorResponseException,
 )
 from onethingapi.http.http_method_enum import (
     HttpMethodEnum,
@@ -82,7 +82,7 @@ class OrdersApi(BaseApi):
             .deserialize_into(Order.from_dictionary)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def mark_order_shipped(self,
@@ -97,7 +97,7 @@ class OrdersApi(BaseApi):
         Args:
             slug (str): The shop's link name (current or former).
             order_id (str): OneThing's order id (`Order.id`).
-            body (ApiShopsOrdersShipRequest): The request body parameter.
+            body (ApiShopsOrdersShipRequest): The carrier and tracking number.
 
         Returns:
             ApiShopsOrdersShipResponse: Response from the API. Shipped.
@@ -139,10 +139,10 @@ class OrdersApi(BaseApi):
             .deserialize_into(ApiShopsOrdersShipResponse.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def refund_order(self,
@@ -161,7 +161,8 @@ class OrdersApi(BaseApi):
         Args:
             slug (str): The shop's link name (current or former).
             order_id (str): OneThing's order id (`Order.id`).
-            body (ApiShopsOrdersRefundRequest, optional): The request body parameter.
+            body (ApiShopsOrdersRefundRequest, optional): Optional. `record: true`
+                records a refund made in PayPal.
 
         Returns:
             ApiShopsOrdersRefundResponse: Response from the API. Refunded.
@@ -202,7 +203,7 @@ class OrdersApi(BaseApi):
             .deserialize_into(ApiShopsOrdersRefundResponse.from_dictionary)
             .local_error("404",
                 "No such shop or order, or the token doesn't match the shop.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("409",
                 "Not refundable here; `error` says why.",
                 ApiShopsOrdersRefund409ErrorException),
@@ -246,5 +247,5 @@ class OrdersApi(BaseApi):
             .deserialize_into(WebhookEvent.from_dictionary)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()

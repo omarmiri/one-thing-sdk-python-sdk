@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class Fonts(object):
     """Implementation of the 'Fonts' model.
 
+    Google Fonts for the page.
+
     Attributes:
-        heading (str): The model property of type str.
-        body (str): The model property of type str.
+        heading (str): The headings font.
+        body (str): The body text font.
 
     """
 

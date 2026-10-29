@@ -176,7 +176,7 @@ def order_by_link(self,
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 agent = 'ChatGPT'
 
@@ -211,10 +211,10 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | A missing or unknown option value, or sold out. `error` names the valid values. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 403 | A known crawler or link previewer. They don't place orders. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No live shop with that link name. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | A missing or unknown option value, or sold out. `error` names the valid values. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 403 | A known crawler or link previewer. They don't place orders. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No live shop with that link name. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Get Agent Order
@@ -282,7 +282,7 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No order with that id. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No order with that id. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Get Agent Product
@@ -315,7 +315,7 @@ def get_agent_product(self,
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 agent = 'ChatGPT'
 
@@ -420,7 +420,7 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No live shop with that link name. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No live shop with that link name. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Call Mcp

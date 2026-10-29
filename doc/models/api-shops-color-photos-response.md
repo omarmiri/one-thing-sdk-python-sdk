@@ -1,6 +1,8 @@
 
 # Api Shops Color Photos Response
 
+The colours that changed.
+
 ## Structure
 
 `ApiShopsColorPhotosResponse`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `saved` | `List[str]` | Required | - |
+| `saved` | `List[str]` | Required | Colour labels whose photo changed. |
 
 ## Example
 
@@ -18,7 +20,8 @@ from onethingapi.models.api_shops_color_photos_response import ApiShopsColorPhot
 
 api_shops_color_photos_response = ApiShopsColorPhotosResponse(
     saved=[
-        'saved9'
+        'Ice Blue',
+        'Amber'
     ]
 )
 ```

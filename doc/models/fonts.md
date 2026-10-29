@@ -1,6 +1,8 @@
 
 # Fonts
 
+Google Fonts for the page.
+
 ## Structure
 
 `Fonts`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `heading` | `str` | Required | - |
-| `body` | `str` | Required | - |
+| `heading` | `str` | Required | The headings font. |
+| `body` | `str` | Required | The body text font. |
 
 ## Example
 
@@ -18,8 +20,8 @@
 from onethingapi.models.fonts import Fonts
 
 fonts = Fonts(
-    heading='heading2',
-    body='body6'
+    heading='Playfair Display',
+    body='Inter'
 )
 ```
 

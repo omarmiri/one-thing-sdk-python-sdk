@@ -1,6 +1,8 @@
 
 # Shop 1
 
+The shop the order belongs to.
+
 ## Structure
 
 `Shop1`
@@ -9,9 +11,9 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `slug` | `str` | Optional | - |
-| `name` | `str` | Optional | - |
-| `url` | `str` | Optional | - |
+| `slug` | `str` | Optional | The shop's link name. |
+| `name` | `str` | Optional | The product's name. |
+| `url` | `str` | Optional | The shop page. |
 
 ## Example
 
@@ -19,9 +21,9 @@
 from onethingapi.models.shop_1 import Shop1
 
 shop_1 = Shop1(
-    slug='slug6',
-    name='name2',
-    url='url6'
+    slug='vintageskates',
+    name='Vintage Cream and Red Roller Skates',
+    url='https://one-thing-ash0.onrender.com/vintageskates'
 )
 ```
 

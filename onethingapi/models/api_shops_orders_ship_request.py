@@ -10,10 +10,12 @@ from onethingapi.api_helper import APIHelper
 class ApiShopsOrdersShipRequest(object):
     """Implementation of the 'Api Shops Orders Ship Request' model.
 
+    The shipment's tracking.
+
     Attributes:
-        carrier (Carrier): The model property of type Carrier.
+        carrier (Carrier): The carrier. `OTHER` needs `carrierName`.
         carrier_name (str): Required when `carrier` is `OTHER`.
-        tracking_number (str): The model property of type str.
+        tracking_number (str): The carrier's tracking number.
 
     """
 

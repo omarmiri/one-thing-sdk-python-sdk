@@ -10,8 +10,11 @@ from onethingapi.api_helper import APIHelper
 class ApiAccessVerifyResponse(object):
     """Implementation of the 'Api Access Verify Response' model.
 
+    Whether the code is valid.
+
     Attributes:
-        valid (bool): The model property of type bool.
+        valid (bool): True if the code belongs to a paid, unrefunded order for this
+            shop.
         product (str): The product name, when valid.
 
     """

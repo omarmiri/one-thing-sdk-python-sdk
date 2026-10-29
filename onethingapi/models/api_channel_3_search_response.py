@@ -12,8 +12,10 @@ from onethingapi.models.product_card import (
 class ApiChannel3SearchResponse(object):
     """Implementation of the 'Api Channel3 Search Response' model.
 
+    The products found.
+
     Attributes:
-        products (List[ProductCard]): The model property of type List[ProductCard].
+        products (List[ProductCard]): Products, best match first.
 
     """
 

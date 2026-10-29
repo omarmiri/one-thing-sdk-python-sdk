@@ -1,6 +1,8 @@
 
 # Shop Photos
 
+The shop's photos.
+
 ## Structure
 
 `ShopPhotos`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `photos` | [`List[Photo]`](../../doc/models/photo.md) | Required | - |
+| `photos` | [`List[Photo]`](../../doc/models/photo.md) | Required | Every photo, the cover first. |
 
 ## Example
 
@@ -20,8 +22,8 @@ from onethingapi.models.shop_photos import ShopPhotos
 shop_photos = ShopPhotos(
     photos=[
         Photo(
-            id='id8',
-            url='url2'
+            id='LFRvGuTU3D8i334X',
+            url='/api/blobs/LFRvGuTU3D8i334X'
         )
     ]
 )

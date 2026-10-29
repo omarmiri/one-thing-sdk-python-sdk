@@ -10,9 +10,9 @@ from onethingapi.exceptions.api_exception import (
 )
 
 
-class ErrorException(ApiException):
+class ErrorResponseException(ApiException):
     def __init__(self, reason, response):
-        """Initialize ErrorException object.
+        """Initialize ErrorResponseException object.
 
         Args:
             reason (string): The reason (or error message) for the Exception
@@ -20,7 +20,7 @@ class ErrorException(ApiException):
             response (HttpResponse): The HttpResponse of the API call.
 
         """
-        super(ErrorException, self).__init__(reason, response)
+        super(ErrorResponseException, self).__init__(reason, response)
         dictionary = APIHelper.json_deserialize(self.response.text)
         if isinstance(dictionary, dict):
             self.unbox(dictionary)

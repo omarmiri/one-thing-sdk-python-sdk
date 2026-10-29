@@ -10,12 +10,14 @@ from onethingapi.api_helper import APIHelper
 class Offer(object):
     """Implementation of the 'Offer' model.
 
+    One store's offer.
+
     Attributes:
-        domain (str): The model property of type str.
-        url (str): The model property of type str.
-        price (float): The model property of type float.
-        currency (str): The model property of type str.
-        in_stock (bool): The model property of type bool.
+        domain (str): The store's domain.
+        url (str): A Channel3-tracked buy link, credited to this shop.
+        price (float): The store's price.
+        currency (str): ISO 4217 currency code.
+        in_stock (bool): Whether the store has it in stock.
         commission (float): Maximum commission rate, 0–1 (0.08 = 8%).
 
     """

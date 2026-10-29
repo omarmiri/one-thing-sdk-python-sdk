@@ -15,7 +15,7 @@ class PayPalStatus(object):
     Attributes:
         receivable (bool): The account can receive payments.
         email_confirmed (bool): The seller has confirmed their email with PayPal.
-        checked_at (datetime): The model property of type datetime.
+        checked_at (datetime): When OneThing last asked PayPal.
 
     """
 

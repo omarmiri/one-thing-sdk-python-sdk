@@ -10,6 +10,8 @@ from onethingapi.api_helper import APIHelper
 class ApiShopsPaypalRequest(object):
     """Implementation of the 'Api Shops Paypal Request' model.
 
+    Where to come back to.
+
     Attributes:
         return_url (str): Platform key only. Where to send the seller after PayPal.
 

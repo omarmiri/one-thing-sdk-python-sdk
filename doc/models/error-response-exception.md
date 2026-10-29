@@ -1,9 +1,11 @@
 
-# Error Exception
+# Error Response Exception
+
+An error reply.
 
 ## Structure
 
-`ErrorException`
+`ErrorResponseException`
 
 ## Fields
 
@@ -18,7 +20,7 @@
 ```python
 try:
     # make the API call
-except ErrorException as e:
+except ErrorResponseException as e:
     print(e)
 except ApiException as e:
     print(e)

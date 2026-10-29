@@ -11,19 +11,21 @@ from onethingapi.models.agent_money import AgentMoney
 class PlatformShop(object):
     """Implementation of the 'PlatformShop' model.
 
+    A shop as a platform API key lists it.
+
     Attributes:
-        slug (str): The model property of type str.
-        status (Status): The model property of type Status.
-        name (str): The model property of type str.
-        headline (str): The model property of type str.
-        product_type (ProductType1): The model property of type ProductType1.
-        price (AgentMoney): The model property of type AgentMoney.
+        slug (str): The shop's link name.
+        status (Status3): `draft` until the seller goes live.
+        name (str): The product's name.
+        headline (str): The shop's one-line pitch.
+        product_type (ProductType3): `physical`, `digital` or `referral`.
+        price (AgentMoney): An amount of money, as a number and as a label.
         url (str): The shop page buyers pay on.
         cover (str): The cover image's URL.
         paypal_connected (bool): The seller connected a PayPal account that can be
             paid.
         sales (int): Paid orders.
-        created_at (datetime): The model property of type datetime.
+        created_at (datetime): When the shop was made.
 
     """
 

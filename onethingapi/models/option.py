@@ -14,10 +14,12 @@ from onethingapi.models.option_value import (
 class Option(object):
     """Implementation of the 'Option' model.
 
+    A suggested option.
+
     Attributes:
-        name (str): The model property of type str.
+        name (str): What the buyer is choosing.
         kind (Kind): `color` shows swatches, and the photo of the picked colour.
-        values (List[OptionValue]): The model property of type List[OptionValue].
+        values (List[OptionValue]): The values to pick from.
         from_seller (bool): The seller's description or photo named these values;
             otherwise they're a guess.
 

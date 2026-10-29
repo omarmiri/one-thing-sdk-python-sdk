@@ -1,6 +1,8 @@
 
 # Api Shops Paypal Response
 
+The onboarding link.
+
 ## Structure
 
 `ApiShopsPaypalResponse`
@@ -17,7 +19,7 @@
 from onethingapi.models.api_shops_paypal_response import ApiShopsPaypalResponse
 
 api_shops_paypal_response = ApiShopsPaypalResponse(
-    url='url2'
+    url='https://www.sandbox.paypal.com/bizsignup/partner/entry?referralToken=EXAMPLE'
 )
 ```
 

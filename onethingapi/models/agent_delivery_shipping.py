@@ -16,10 +16,13 @@ class AgentDeliveryShipping(object):
     A physical product shipped to the buyer.
 
     Attributes:
-        mtype (str): The model property of type str.
-        ship_to (ShipTo): The model property of type ShipTo.
-        fulfillment (Fulfillment): The model property of type Fulfillment.
-        tracking (Tracking): The model property of type Tracking.
+        mtype (str): Always `shipping`.
+        ship_to (ShipTo): Where it ships, from the buyer's PayPal checkout. Null if
+            PayPal didn't share it.
+        fulfillment (Fulfillment): `to_ship` until the seller adds tracking, then
+            `shipped`.
+        tracking (Tracking): The carrier and tracking number once shipped; null
+            before.
 
     """
 

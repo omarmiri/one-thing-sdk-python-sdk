@@ -10,10 +10,12 @@ from onethingapi.api_helper import APIHelper
 class AgentMoney(object):
     """Implementation of the 'AgentMoney' model.
 
+    An amount of money, as a number and as a label.
+
     Attributes:
-        amount (float): The model property of type float.
-        currency (str): The model property of type str.
-        label (str): The model property of type str.
+        amount (float): The amount in the currency's main unit (dollars, not cents).
+        currency (str): ISO 4217 currency code.
+        label (str): The amount formatted for people.
 
     """
 

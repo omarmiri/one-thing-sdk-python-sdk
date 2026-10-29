@@ -28,27 +28,32 @@ class AgentProduct(object):
             recognised user agent, else the name the agent gave itself (`?agent=`, or
             the MCP client's name), else the user agent's first word.
         shop (str): The link name, which the MCP tools take as `shop`.
-        url (str): The model property of type str.
-        name (str): The model property of type str.
-        kind (Kind1): The model property of type Kind1.
-        headline (str): The model property of type str.
-        description (str): The model property of type str.
-        highlights (List[str]): The model property of type List[str].
-        details (List[Detail]): The model property of type List[Detail].
-        faq (List[Faq]): The model property of type List[Faq].
-        images (List[str]): The model property of type List[str].
-        price (AgentMoney): The model property of type AgentMoney.
+        url (str): The shop page, where a person can buy it too.
+        name (str): The product's name.
+        kind (Kind1): `physical` ships, `digital` downloads or unlocks with a code,
+            `referral` is bought at another store.
+        headline (str): The shop's one-line pitch.
+        description (str): What the product is, in a few sentences.
+        highlights (List[str]): The product's selling points, one per line.
+        details (List[Detail]): Product facts, such as size, material or format.
+        faq (List[Faq]): Questions buyers ask, answered by the seller's page.
+        images (List[str]): Photo URLs, the cover first. Show these rather than
+            generating or searching for images.
+        price (AgentMoney): An amount of money, as a number and as a label.
         shipping (Shipping | None): Physical products only.
-        total (AgentMoney): The model property of type AgentMoney.
-        delivery (str): The model property of type str.
-        availability (str): The model property of type str.
+        total (AgentMoney): An amount of money, as a number and as a label.
+        delivery (str): How the buyer gets it, in plain words.
+        availability (str): `in_stock`, `in_stock (N left)` or `sold_out`. With
+            options, see `variants`.
         options (List[Option1]): Pass one value per option to `create_order`.
-        variants (List[Variant]): The model property of type List[Variant].
+        variants (List[Variant]): Products with options: each combination, its stock
+            and its order link.
         order_url (str): Products without options: `orderByLink`, which orders one
             unit with a GET. Left out when sold out. With options, each variant has
             its own.
         offers (List[Offer1]): Recommendations only. Bought at the retailer.
-        how_to_buy (str): The model property of type str.
+        how_to_buy (str): How to buy it, written for an agent: which tool or link to
+            use and what to ask the buyer.
         mcp_server (str): The MCP server to order through (`getAgentProduct` only).
 
     """

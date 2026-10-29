@@ -10,10 +10,12 @@ from onethingapi.api_helper import APIHelper
 class MissingFact(object):
     """Implementation of the 'MissingFact' model.
 
+    One question to answer.
+
     Attributes:
-        label (str): The model property of type str.
-        question (str): The model property of type str.
-        placeholder (str): The model property of type str.
+        label (str): The product detail it becomes.
+        question (str): The question, for the seller.
+        placeholder (str): An example answer.
 
     """
 

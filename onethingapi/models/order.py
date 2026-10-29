@@ -10,35 +10,40 @@ from onethingapi.api_helper import APIHelper
 class Order(object):
     """Implementation of the 'Order' model.
 
+    An order, as the seller sees it.
+
     Attributes:
-        id (str): The model property of type str.
-        paypal_order_id (str): The model property of type str.
-        status (Status4): The model property of type Status4.
-        amount_cents (int): The model property of type int.
-        shipping_cents (int): The model property of type int.
-        currency (str): The model property of type str.
-        buyer_email (str): The model property of type str.
-        buyer_name (str): The model property of type str.
-        shipping_address (Dict[str, str]): The model property of type Dict[str, str].
-        capture_id (str): The model property of type str.
-        fulfillment_status (FulfillmentStatus): The model property of type
-            FulfillmentStatus.
-        carrier (str): The model property of type str.
-        tracking_number (str): The model property of type str.
-        tracking_synced (bool): The model property of type bool.
-        downloads (int): The model property of type int.
-        access_code (str): The model property of type str.
-        code_uses (int): The model property of type int.
-        code_last_used_at (datetime): The model property of type datetime.
+        id (str): OneThing's order id.
+        paypal_order_id (str): PayPal's order id.
+        status (Status4): `created` until paid; `failed` if PayPal declined;
+            `refunded` after a refund.
+        amount_cents (int): The total charged, shipping included, in cents.
+        shipping_cents (int): The shipping part of `amount_cents`.
+        currency (str): ISO 4217 currency code.
+        buyer_email (str): From PayPal, once paid.
+        buyer_name (str): From PayPal, once paid.
+        shipping_address (Dict[str, str]): Physical orders: the address from PayPal
+            checkout, by field.
+        capture_id (str): PayPal's capture id, once paid. Refunds use it.
+        fulfillment_status (FulfillmentStatus): `to_ship` and `shipped` for physical
+            orders, `digital_sent` for digital ones, `none` before payment.
+        carrier (str): Shipped orders: the carrier.
+        tracking_number (str): Shipped orders: the tracking number.
+        tracking_synced (bool): Whether PayPal accepted the tracking number.
+        downloads (int): How many times the buyer downloaded the file.
+        access_code (str): Access-code products: the code this buyer got.
+        code_uses (int): How many times the access code was checked.
+        code_last_used_at (datetime): When the access code was last checked with
+            `verifyAccessCode`.
         channel (Channel): `agent` for orders an AI agent placed (MCP or an order
             link).
         agent (str): The agent credited with an agent order, such as `Grok`.
         refund_id (str): PayPal's refund id, once refunded through OneThing.
-        refunded_at (datetime): The model property of type datetime.
+        refunded_at (datetime): When the order was refunded.
         options (Dict[str, str]): The buyer's pick, one value per option, keyed by
             option name (see `Choice`).
-        paid_at (datetime): The model property of type datetime.
-        created_at (datetime): The model property of type datetime.
+        paid_at (datetime): When PayPal captured the payment.
+        created_at (datetime): When the order was made.
 
     """
 

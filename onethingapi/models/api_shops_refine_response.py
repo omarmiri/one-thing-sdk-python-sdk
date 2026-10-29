@@ -10,6 +10,8 @@ from onethingapi.models.design_spec import DesignSpec
 class ApiShopsRefineResponse(object):
     """Implementation of the 'Api Shops Refine Response' model.
 
+    The redesigned page.
+
     Attributes:
         spec (DesignSpec): What Gemini designed. OneThing's templates render it;
             Gemini never writes HTML.

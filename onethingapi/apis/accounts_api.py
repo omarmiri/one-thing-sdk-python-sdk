@@ -11,8 +11,8 @@ from apimatic_core.types.parameter import Parameter
 from onethingapi.api_helper import APIHelper
 from onethingapi.apis.base_api import BaseApi
 from onethingapi.configuration import Server
-from onethingapi.exceptions.error_exception import (
-    ErrorException,
+from onethingapi.exceptions.error_response_exception import (
+    ErrorResponseException,
 )
 from onethingapi.http.http_method_enum import (
     HttpMethodEnum,
@@ -43,7 +43,7 @@ class AccountsApi(BaseApi):
         sales are paid into.
 
         Args:
-            body (ApiAccountSigninRequest): The request body parameter.
+            body (ApiAccountSigninRequest): The email or phone number to sign in with.
 
         Returns:
             ApiAccountSigninResponse: Response from the API. Signed in. The
@@ -75,7 +75,7 @@ class AccountsApi(BaseApi):
             .deserialize_into(ApiAccountSigninResponse.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def sign_out(self):

@@ -11,10 +11,13 @@ from onethingapi.models.method import Method
 class JsonRpcRequest(object):
     """Implementation of the 'JsonRpcRequest' model.
 
+    A JSON-RPC 2.0 request to the MCP server.
+
     Attributes:
-        jsonrpc (str): The model property of type str.
+        jsonrpc (str): Always `2.0`.
         id (str | int | None): Leave out for a notification.
-        method (Method): The model property of type Method.
+        method (Method): The MCP method. `tools/call` runs a tool; `tools/list` lists
+            them.
         params (Any): For `tools/call`: `{ name, arguments }`.
 
     """

@@ -10,24 +10,33 @@ from onethingapi.api_helper import APIHelper
 class CreateShopForm(object):
     """Implementation of the 'CreateShopForm' model.
 
+    What to make a shop from. Only `source` is required; the AI guesses the rest and
+    the seller corrects it with `updateShop`.
+
     Attributes:
-        source (Source): The model property of type Source.
+        source (Source): What the shop starts from: a photo (with an optional
+            description), a product link, or a Channel3 product to recommend.
         photo (binary): `source=photo`: the product photo, up to 8 MB.
         description (str): `source=photo`: a sentence or two about the product.
             Required if there is no photo.
         url (str): `source=link`: a product page, or your own app or game page.
         product_id (str): `source=channel3`: a product id from `searchProducts`.
         slug (str): The link name you want. If omitted, the AI suggests one.
-        mtype (Type): The model property of type Type.
+        mtype (Type): `physical` ships, `digital` is a file or an access code, `auto`
+            lets the AI decide.
         delivery (Delivery): For digital products. If omitted, the AI guesses.
         access_url (str): Where buyers use an access code.
         price (float): USD. If omitted, the AI suggests a price.
-        shipping (float): The model property of type float.
-        stock (int): The model property of type int.
-        ship_countries (str): The model property of type str.
-        paypal_email (str): The model property of type str.
-        seller_email (str): The model property of type str.
-        digital_file (binary): The model property of type binary.
+        shipping (float): Physical products: shipping per order, in USD. If omitted,
+            the AI suggests it.
+        stock (int): How many are for sale. Leave out for unlimited.
+        ship_countries (str): Physical products: comma-separated ISO country codes to
+            ship to. Empty means anywhere PayPal ships.
+        paypal_email (str): The PayPal account that gets paid, if the seller doesn't
+            connect one with `connectPayPal`.
+        seller_email (str): Where order notifications go.
+        digital_file (binary): Digital products sold as a file: the file buyers
+            download, up to 25 MB. Can also be added later with `uploadDigitalFile`.
 
     """
 

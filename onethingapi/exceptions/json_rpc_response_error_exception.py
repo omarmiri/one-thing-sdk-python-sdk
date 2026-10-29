@@ -8,7 +8,7 @@ from onethingapi.api_helper import APIHelper
 from onethingapi.exceptions.api_exception import (
     ApiException,
 )
-from onethingapi.models.error_1 import Error1
+from onethingapi.models.error import Error
 
 
 class JsonRpcResponseErrorException(ApiException):
@@ -47,7 +47,7 @@ class JsonRpcResponseErrorException(ApiException):
             if dictionary.get("result")\
                 else None
         self.error =\
-            Error1.from_dictionary(
+            Error.from_dictionary(
                 dictionary.get("error"))\
                 if "error" in dictionary.keys()\
                 else None

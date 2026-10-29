@@ -10,10 +10,12 @@ from onethingapi.api_helper import APIHelper
 class Variant(object):
     """Implementation of the 'Variant' model.
 
+    One combination of option values.
+
     Attributes:
         choice (Dict[str, str]): The buyer's pick, one value per option, keyed by
             option name.
-        availability (str): The model property of type str.
+        availability (str): `in_stock`, `in_stock (N left)` or `sold_out`.
         order_url (str): `orderByLink` for this pick. Left out when it's sold out.
 
     """

@@ -14,8 +14,8 @@ from apimatic_core.types.parameter import Parameter
 from onethingapi.api_helper import APIHelper
 from onethingapi.apis.base_api import BaseApi
 from onethingapi.configuration import Server
-from onethingapi.exceptions.error_exception import (
-    ErrorException,
+from onethingapi.exceptions.error_response_exception import (
+    ErrorResponseException,
 )
 from onethingapi.http.http_method_enum import (
     HttpMethodEnum,
@@ -41,8 +41,8 @@ class PlatformsApi(BaseApi):
         sales it has.
 
         Args:
-            status (Status, optional): Only shops with this status, e.g. `live` for a
-                public catalog.
+            status (Status5, optional): Only shops with this status, e.g. `live` for
+                a public catalog.
 
         Returns:
             ApiPlatformShopsResponse: Response from the API. The shops.
@@ -70,5 +70,5 @@ class PlatformsApi(BaseApi):
             .deserialize_into(ApiPlatformShopsResponse.from_dictionary)
             .local_error("401",
                 "No API key, or it's wrong or revoked.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()

@@ -10,8 +10,10 @@ from onethingapi.api_helper import APIHelper
 class ApiOrdersRequest(object):
     """Implementation of the 'Api Orders Request' model.
 
+    The shop to buy from and the buyer's pick.
+
     Attributes:
-        slug (str): The model property of type str.
+        slug (str): The shop's link name.
         options (Dict[str, str]): The buyer's pick, one value per option, keyed by
             option name.
 

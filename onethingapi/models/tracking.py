@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class Tracking(object):
     """Implementation of the 'Tracking' model.
 
+    The carrier and tracking number once shipped; null before.
+
     Attributes:
-        carrier (str): The model property of type str.
-        number (str): The model property of type str.
+        carrier (str): The shipping carrier.
+        number (str): The tracking number.
 
     """
 

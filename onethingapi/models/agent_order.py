@@ -21,20 +21,20 @@ class AgentOrder(object):
         agent_name (str): Who this request was credited to in the seller's stats: a
             recognised user agent, else the name the agent gave itself (`?agent=`, or
             the MCP client's name), else the user agent's first word.
-        order_id (str): The model property of type str.
+        order_id (str): The order's id.
         status (Status2): `declined`: PayPal declined it, nothing charged, the buyer
             can open `pay_url` again. `sold_out`: it sold out before the payment was
             captured. `expired`: the PayPal checkout expired; create a new order.
             `failed`: PayPal couldn't be reached; ask again.
-        product (str): The model property of type str.
+        product (str): The product's name.
         options (Dict[str, str]): The buyer's pick, one value per option, keyed by
             option name.
-        amount (Amount): The model property of type Amount.
+        amount (Amount): What the order costs, as numbers.
         total (str): The total as a label, e.g. `$255.00`.
         pay_url (str): Unpaid orders (waiting or declined). The buyer pays here; safe
             to show in chat.
         next_step (str): Unpaid orders. What the agent should do next, in plain words.
-        paid_at (datetime): The model property of type datetime.
+        paid_at (datetime): Paid orders. When PayPal captured the payment.
         receipt_url (str): Paid orders. The buyer's thank-you page.
         delivery (AgentDeliveryAccessCode | AgentDeliveryDownload |
             AgentDeliveryShipping | None): Paid orders. What the buyer got.

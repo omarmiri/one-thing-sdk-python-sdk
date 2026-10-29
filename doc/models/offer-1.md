@@ -1,6 +1,8 @@
 
 # Offer 1
 
+One store's offer.
+
 ## Structure
 
 `Offer1`
@@ -9,11 +11,11 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `retailer` | `str` | Required | - |
-| `price` | `float` | Required | - |
-| `currency` | `str` | Required | - |
-| `in_stock` | `bool` | Required | - |
-| `url` | `str` | Required | - |
+| `retailer` | `str` | Required | The store. |
+| `price` | `float` | Required | The store's price. |
+| `currency` | `str` | Required | ISO 4217 currency code. |
+| `in_stock` | `bool` | Required | Whether the store has it in stock. |
+| `url` | `str` | Required | A tracked buy link at that store. |
 
 ## Example
 
@@ -21,11 +23,11 @@
 from onethingapi.models.offer_1 import Offer1
 
 offer_1 = Offer1(
-    retailer='retailer8',
-    price=95,
-    currency='currency2',
-    in_stock=False,
-    url='url6'
+    retailer='rei.com',
+    price=240,
+    currency='USD',
+    in_stock=True,
+    url='https://buy.trychannel3.com/r/abc123'
 )
 ```
 

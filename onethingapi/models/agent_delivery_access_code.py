@@ -13,8 +13,8 @@ class AgentDeliveryAccessCode(object):
     A digital product unlocked with an access code.
 
     Attributes:
-        mtype (str): The model property of type str.
-        access_code (str): The model property of type str.
+        mtype (str): Always `access_code`.
+        access_code (str): The buyer's code, which unlocks the seller's app or game.
         start_url (str): The seller's app with the code filled in.
 
     """

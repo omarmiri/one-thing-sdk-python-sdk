@@ -10,17 +10,19 @@ from onethingapi.api_helper import APIHelper
 class Order1(object):
     """Implementation of the 'Order1' model.
 
+    The order.
+
     Attributes:
-        id (str): The model property of type str.
-        paypal_order_id (str): The model property of type str.
-        amount (str): The model property of type str.
-        currency (str): The model property of type str.
-        buyer_name (str): The model property of type str.
-        buyer_email (str): The model property of type str.
-        shipping_address (Any): The model property of type Any.
-        fulfillment_status (str): The model property of type str.
-        tracking_number (str): The model property of type str.
-        carrier (str): The model property of type str.
+        id (str): OneThing's order id.
+        paypal_order_id (str): PayPal's order id.
+        amount (str): The total, as a decimal string.
+        currency (str): ISO 4217 currency code.
+        buyer_name (str): The buyer's name, from PayPal.
+        buyer_email (str): The buyer's email, from PayPal.
+        shipping_address (Any): Physical orders: the address, by field.
+        fulfillment_status (str): As in `Order.fulfillment_status`.
+        tracking_number (str): The tracking number, once shipped.
+        carrier (str): The carrier, once shipped.
 
     """
 

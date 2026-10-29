@@ -10,11 +10,13 @@ from onethingapi.api_helper import APIHelper
 class Amount(object):
     """Implementation of the 'Amount' model.
 
+    What the order costs, as numbers.
+
     Attributes:
-        item (float): The model property of type float.
-        shipping (float): The model property of type float.
-        total (float): The model property of type float.
-        currency (str): The model property of type str.
+        item (float): The product's price.
+        shipping (float): Shipping; 0 for digital products.
+        total (float): Product plus shipping: what the buyer pays.
+        currency (str): ISO 4217 currency code.
 
     """
 

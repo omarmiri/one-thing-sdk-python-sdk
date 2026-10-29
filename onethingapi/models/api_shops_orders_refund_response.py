@@ -10,8 +10,10 @@ from onethingapi.api_helper import APIHelper
 class ApiShopsOrdersRefundResponse(object):
     """Implementation of the 'Api Shops Orders Refund Response' model.
 
+    The refund.
+
     Attributes:
-        ok (bool): The model property of type bool.
+        ok (bool): Always `true`.
         refund_id (str): PayPal's refund id; null when `record` was used.
 
     """

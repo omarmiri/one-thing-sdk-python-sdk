@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class OptionValue(object):
     """Implementation of the 'OptionValue' model.
 
+    One value of an option.
+
     Attributes:
-        label (str): The model property of type str.
-        hex (str): The model property of type str.
+        label (str): What the buyer sees and picks.
+        hex (str): A colour as `#rrggbb`.
         photo (str): Colours: the shop photo (id) that shows this colour. See
             `matchColorPhotos`.
 

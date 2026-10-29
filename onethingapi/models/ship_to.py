@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class ShipTo(object):
     """Implementation of the 'ShipTo' model.
 
+    Where it ships, from the buyer's PayPal checkout. Null if PayPal didn't share it.
+
     Attributes:
-        name (str): The model property of type str.
-        address (str): The model property of type str.
+        name (str): The recipient's name.
+        address (str): The address on one line.
 
     """
 

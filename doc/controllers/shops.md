@@ -77,22 +77,22 @@ This endpoint requires [PlatformKey](../../doc/auth/oauth-2-bearer-token.md)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `source` | [`Source`](../../doc/models/source.md) | Form, Required | - |
+| `source` | [`Source`](../../doc/models/source.md) | Form, Required | What the shop starts from: a photo (with an optional description), a product link, or a Channel3 product to recommend. |
 | `photo` | `typing.BinaryIO` | Form, Optional | `source=photo`: the product photo, up to 8 MB. |
 | `description` | `str` | Form, Optional | `source=photo`: a sentence or two about the product. Required if there is no photo. |
 | `url` | `str` | Form, Optional | `source=link`: a product page, or your own app or game page. |
 | `product_id` | `str` | Form, Optional | `source=channel3`: a product id from `searchProducts`. |
 | `slug` | `str` | Form, Optional | The link name you want. If omitted, the AI suggests one. |
-| `mtype` | [`Type`](../../doc/models/type.md) | Form, Optional | **Default**: `"auto"` |
+| `mtype` | [`Type`](../../doc/models/type.md) | Form, Optional | `physical` ships, `digital` is a file or an access code, `auto` lets the AI decide.<br><br>**Default**: `"auto"` |
 | `delivery` | [`Delivery`](../../doc/models/delivery.md) | Form, Optional | For digital products. If omitted, the AI guesses. |
 | `access_url` | `str` | Form, Optional | Where buyers use an access code. |
 | `price` | `float` | Form, Optional | USD. If omitted, the AI suggests a price. |
-| `shipping` | `float` | Form, Optional | - |
-| `stock` | `int` | Form, Optional | - |
-| `ship_countries` | `str` | Form, Optional | - |
-| `paypal_email` | `str` | Form, Optional | - |
-| `seller_email` | `str` | Form, Optional | - |
-| `digital_file` | `typing.BinaryIO` | Form, Optional | - |
+| `shipping` | `float` | Form, Optional | Physical products: shipping per order, in USD. If omitted, the AI suggests it. |
+| `stock` | `int` | Form, Optional | How many are for sale. Leave out for unlimited. |
+| `ship_countries` | `str` | Form, Optional | Physical products: comma-separated ISO country codes to ship to. Empty means anywhere PayPal ships. |
+| `paypal_email` | `str` | Form, Optional | The PayPal account that gets paid, if the seller doesn't connect one with `connectPayPal`. |
+| `seller_email` | `str` | Form, Optional | Where order notifications go. |
+| `digital_file` | `typing.BinaryIO` | Form, Optional | Digital products sold as a file: the file buyers download, up to 25 MB. Can also be added later with `uploadDigitalFile`. |
 
 ## Response Type
 
@@ -105,26 +105,14 @@ This endpoint requires [PlatformKey](../../doc/auth/oauth-2-bearer-token.md)
 ```python
 source = Source.PHOTO
 
-description = 'Vintage cream and red quad roller skates with walnut burl heels.'
-
 mtype = Type.PHYSICAL
-
-price = 240
-
-shipping = 15
 
 ship_countries = 'US'
 
-paypal_email = 'seller@example.com'
-
 result = shops_api.create_shop(
     source,
-    description=description,
     mtype=mtype,
-    price=price,
-    shipping=shipping,
-    ship_countries=ship_countries,
-    paypal_email=paypal_email
+    ship_countries=ship_countries
 )
 print(result)
 ```
@@ -143,10 +131,10 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 409 | Taken or unavailable (a link name, or a sold-out product). | [`ErrorException`](../../doc/models/error-exception.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 409 | Taken or unavailable (a link name, or a sold-out product). | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Get Shop
@@ -177,7 +165,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 result = shops_api.get_shop(slug)
 print(result)
@@ -292,7 +280,7 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Update Shop
@@ -316,7 +304,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `str` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ShopUpdate`](../../doc/models/shop-update.md) | Body, Required | - |
+| `body` | [`ShopUpdate`](../../doc/models/shop-update.md) | Body, Required | The fields to change; anything left out stays as it is. |
 
 ## Response Type
 
@@ -327,7 +315,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 body = ShopUpdate(
     status=Status.LIVE
@@ -353,8 +341,8 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Refine Shop Design
@@ -376,7 +364,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `str` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsRefineRequest`](../../doc/models/api-shops-refine-request.md) | Body, Required | - |
+| `body` | [`ApiShopsRefineRequest`](../../doc/models/api-shops-refine-request.md) | Body, Required | The design change, in words. |
 
 ## Response Type
 
@@ -387,7 +375,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 body = ApiShopsRefineRequest(
     instruction='Make it feel more premium'
@@ -452,10 +440,10 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Regenerate Hero Art
@@ -486,7 +474,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 result = shops_api.regenerate_hero_art(slug)
 print(result)
@@ -504,9 +492,9 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Upload Digital File
@@ -539,7 +527,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 file = FileWrapper(Path('dummy_file').open('rb'), 'optional-content-type')
 
@@ -563,8 +551,8 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Add Photos
@@ -597,7 +585,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 photo = FileWrapper(Path('dummy_file').open('rb'), 'optional-content-type')
 
@@ -629,8 +617,8 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Set Photo Order
@@ -652,7 +640,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `str` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsPhotosRequest`](../../doc/models/api-shops-photos-request.md) | Body, Required | - |
+| `body` | [`ApiShopsPhotosRequest`](../../doc/models/api-shops-photos-request.md) | Body, Required | Every photo id, in the new order. |
 
 ## Response Type
 
@@ -663,7 +651,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 body = ApiShopsPhotosRequest(
     photos=[
@@ -701,8 +689,8 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Check Missing Details
@@ -738,7 +726,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 result = shops_api.check_missing_details(slug)
 print(result)
@@ -781,10 +769,10 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Match Color Photos
@@ -806,7 +794,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `str` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsMatchPhotosRequest`](../../doc/models/api-shops-match-photos-request.md) | Body, Required | - |
+| `body` | [`ApiShopsMatchPhotosRequest`](../../doc/models/api-shops-match-photos-request.md) | Body, Required | The colour option's values. |
 
 ## Response Type
 
@@ -817,7 +805,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 body = ApiShopsMatchPhotosRequest(
     colors=[
@@ -854,10 +842,10 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Set Color Photos
@@ -879,7 +867,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `str` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsColorPhotosRequest`](../../doc/models/api-shops-color-photos-request.md) | Body, Required | - |
+| `body` | [`ApiShopsColorPhotosRequest`](../../doc/models/api-shops-color-photos-request.md) | Body, Required | The photo for each colour. |
 
 ## Response Type
 
@@ -890,12 +878,12 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 body = ApiShopsColorPhotosRequest(
     photos={
         'Cream': 'LFRvGuTU3D8i334X',
-        'Red': 'photos9'
+        'Red': None
     }
 )
 
@@ -921,8 +909,8 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Connect Pay Pal
@@ -953,7 +941,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `slug` | `str` | Template, Required | The shop's link name (current or former). |
-| `body` | [`ApiShopsPaypalRequest`](../../doc/models/api-shops-paypal-request.md) | Body, Optional | - |
+| `body` | [`ApiShopsPaypalRequest`](../../doc/models/api-shops-paypal-request.md) | Body, Optional | Platform keys only: where PayPal sends the seller back. |
 
 ## Response Type
 
@@ -964,7 +952,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 body = ApiShopsPaypalRequest(
     return_url='https://www.miriogames.com/market/manage/?g=7Hq2'
@@ -989,9 +977,9 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Get Pay Pal Connection
@@ -1022,7 +1010,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 result = shops_api.get_pay_pal_connection(slug)
 print(result)
@@ -1045,9 +1033,9 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Disconnect Pay Pal
@@ -1078,7 +1066,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 result = shops_api.disconnect_pay_pal(slug)
 print(result)
@@ -1096,5 +1084,5 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 

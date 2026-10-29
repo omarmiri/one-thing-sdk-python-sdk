@@ -10,8 +10,10 @@ from onethingapi.models.color import Color
 class ApiShopsMatchPhotosRequest(object):
     """Implementation of the 'Api Shops Match Photos Request' model.
 
+    The colours to find photos for.
+
     Attributes:
-        colors (List[Color]): The model property of type List[Color].
+        colors (List[Color]): The colour option's values.
 
     """
 

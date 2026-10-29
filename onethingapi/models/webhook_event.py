@@ -10,14 +10,16 @@ from onethingapi.api_helper import APIHelper
 class WebhookEvent(object):
     """Implementation of the 'WebhookEvent' model.
 
+    A PayPal webhook delivery for this shop's orders.
+
     Attributes:
         id (str): PayPal's event id.
-        event_type (str): The model property of type str.
-        paypal_order_id (str): The model property of type str.
-        summary (str): The model property of type str.
+        event_type (str): PayPal's event type.
+        paypal_order_id (str): The PayPal order it was about.
+        summary (str): The amount, or PayPal's summary.
         verified (bool): Whether PayPal confirmed the delivery's signature.
-        outcome (str): The model property of type str.
-        received_at (datetime): The model property of type datetime.
+        outcome (str): What OneThing did with it.
+        received_at (datetime): When it arrived.
 
     """
 

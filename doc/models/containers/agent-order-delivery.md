@@ -21,7 +21,8 @@
 
 ```python
 value = AgentDeliveryAccessCode(
-    access_code='access_code2'
+    access_code='K7QF-M2XP-9HTD',
+    start_url='https://www.miriogames.com/raptor-rush/?code=K7QF-M2XP-9HTD'
 )
 ```
 
@@ -33,7 +34,8 @@ value = AgentDeliveryAccessCode(
 
 ```python
 value = AgentDeliveryDownload(
-    download_url='download_url8'
+    download_url='https://one-thing-ash0.onrender.com/api/download/dl_4mQ8sT2vX9',
+    note='Works 5 times over 14 days.'
 )
 ```
 
@@ -45,7 +47,15 @@ value = AgentDeliveryDownload(
 
 ```python
 value = AgentDeliveryShipping(
-    fulfillment=Fulfillment.TO_SHIP
+    fulfillment=Fulfillment.TO_SHIP,
+    ship_to=ShipTo(
+        name='Sam Rivera',
+        address='1 Main St, Springfield, IL, 62701, US'
+    ),
+    tracking=Tracking(
+        carrier='USPS',
+        number='9400111899223197428490'
+    )
 )
 ```
 

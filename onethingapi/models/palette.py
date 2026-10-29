@@ -10,13 +10,15 @@ from onethingapi.api_helper import APIHelper
 class Palette(object):
     """Implementation of the 'Palette' model.
 
+    The page colours, taken from the photo. Text colours are checked for contrast.
+
     Attributes:
-        background (str): The model property of type str.
-        surface (str): The model property of type str.
-        text (str): The model property of type str.
-        muted (str): The model property of type str.
-        accent (str): The model property of type str.
-        accent_text (str): The model property of type str.
+        background (str): A colour as `#rrggbb`.
+        surface (str): A colour as `#rrggbb`.
+        text (str): A colour as `#rrggbb`.
+        muted (str): A colour as `#rrggbb`.
+        accent (str): A colour as `#rrggbb`.
+        accent_text (str): A colour as `#rrggbb`.
 
     """
 

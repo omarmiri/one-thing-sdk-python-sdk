@@ -10,10 +10,12 @@ from onethingapi.api_helper import APIHelper
 class Shop1(object):
     """Implementation of the 'Shop1' model.
 
+    The shop the order belongs to.
+
     Attributes:
-        slug (str): The model property of type str.
-        name (str): The model property of type str.
-        url (str): The model property of type str.
+        slug (str): The shop's link name.
+        name (str): The product's name.
+        url (str): The shop page.
 
     """
 

@@ -12,45 +12,56 @@ from onethingapi.models.shop_option import ShopOption
 class Shop(object):
     """Implementation of the 'Shop' model.
 
+    A shop, as its seller sees it.
+
     Attributes:
-        id (str): The model property of type str.
-        slug (str): The model property of type str.
-        status (Status): The model property of type Status.
-        product_type (ProductType1): The model property of type ProductType1.
-        price_cents (int): The model property of type int.
-        currency (str): The model property of type str.
-        shipping_cents (int): The model property of type int.
-        ship_countries (str): The model property of type str.
-        stock (int): The model property of type int.
-        delivery (Delivery1): The model property of type Delivery1.
-        access_url (str): The model property of type str.
-        paypal_email (str): The model property of type str.
-        seller_email (str): The model property of type str.
+        id (str): OneThing's internal shop id.
+        slug (str): The shop's link name.
+        status (Status1): `draft` until the seller goes live; only `live` shops take
+            orders.
+        product_type (ProductType1): `physical` ships, `digital` downloads or
+            unlocks, `referral` recommends a Channel3 product.
+        price_cents (int): The price in cents.
+        currency (str): ISO 4217 currency code.
+        shipping_cents (int): Shipping per order, in cents.
+        ship_countries (str): Comma-separated ISO country codes; null or empty means
+            anywhere PayPal ships.
+        stock (int): How many are left; null for unlimited. With options, see
+            `option_stock`.
+        delivery (Delivery2): Digital products: `file` (a download) or `access_code`
+            (a code that unlocks an app or game).
+        access_url (str): Access-code products: where buyers enter their code.
+        paypal_email (str): The PayPal account paid when no account is connected.
+        seller_email (str): Where order notifications go.
         paypal_merchant_id (str): The connected PayPal account (`connectPayPal`).
             Sales go here when it can receive payments.
-        paypal_status (PayPalStatus | None): The model property of type PayPalStatus
-            | None.
-        zapier_hook_url (str): The model property of type str.
-        in_gallery (bool): The model property of type bool.
+        paypal_status (PayPalStatus | None): What PayPal last said about the
+            connected account; null when none is connected.
+        zapier_hook_url (str): A Zapier Catch Hook that gets an `OrderEvent` for each
+            paid, shipped or refunded order.
+        in_gallery (bool): Whether the shop is featured at `/gallery` while live.
         account_id (str): The seller account that owns the shop, if it was made while
             signed in.
-        options (List[ShopOption]): The model property of type List[ShopOption].
+        options (List[ShopOption]): What the buyer picks, such as size or colour.
         option_stock (Dict[str, int]): Stock per combination, keyed by its values in
             option order joined with ` / ` (e.g. `M / Black`). A missing key or
             `null` means unlimited; `0` is sold out.
-        suggestions (Suggestions | None): The model property of type Suggestions |
-            None.
+        suggestions (Suggestions | None): What the AI thinks buyers will pick or ask;
+            null once handled.
         photo_blob (str): Image id for `getImage`. The cover photo.
         gallery_blobs (List[str]): The other photos, in order.
-        hero_blob (str): The model property of type str.
-        hero_status (HeroStatus): The model property of type HeroStatus.
-        hero_error (str): The model property of type str.
-        ai_source (AiSource): The model property of type AiSource.
-        source_url (str): The model property of type str.
-        referral (Referral | None): The model property of type Referral | None.
+        hero_blob (str): Image id of the AI hero art, when there is one.
+        hero_status (HeroStatus): Hero art: `pending` while generating, then `ready`
+            or `failed`; `none` if not requested.
+        hero_error (str): Why hero art failed, when it did.
+        ai_source (AiSource): Who designed the page: `gemini`, or `fallback` when
+            Gemini wasn't available and a plain template was used.
+        source_url (str): The product link the shop was made from, if any.
+        referral (Referral | None): Recommendation shops: the Channel3 product; null
+            otherwise.
         spec (DesignSpec): What Gemini designed. OneThing's templates render it;
             Gemini never writes HTML.
-        created_at (datetime): The model property of type datetime.
+        created_at (datetime): When the shop was made.
 
     """
 

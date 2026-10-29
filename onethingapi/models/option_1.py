@@ -10,9 +10,12 @@ from onethingapi.api_helper import APIHelper
 class Option1(object):
     """Implementation of the 'Option1' model.
 
+    One option and its values.
+
     Attributes:
-        name (str): The model property of type str.
-        values (List[str]): The model property of type List[str].
+        name (str): The option's name, which is also its query parameter on
+            `order_url`.
+        values (List[str]): The values the buyer can pick.
 
     """
 

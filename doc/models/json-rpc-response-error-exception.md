@@ -1,6 +1,8 @@
 
 # Json Rpc Response Error Exception
 
+A JSON-RPC 2.0 reply from the MCP server.
+
 ## Structure
 
 `JsonRpcResponseErrorException`
@@ -9,10 +11,10 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `jsonrpc` | `str` | Required, Constant | **Value**: `"2.0"` |
+| `jsonrpc` | `str` | Required, Constant | Always `2.0`.<br><br>**Value**: `"2.0"` |
 | `id` | str \| int \| None | Required | This is a container for one-of cases. |
 | `result` | `Any` | Optional | For `tools/call`: `content` (the answer as JSON text), `structuredContent` (the same object) and `isError`. |
-| `error` | [`Error1`](../../doc/models/error-1.md) | Optional | - |
+| `error` | [`Error`](../../doc/models/error.md) | Optional | Present when the call failed. |
 
 ## Example
 

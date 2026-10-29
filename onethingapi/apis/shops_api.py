@@ -17,8 +17,8 @@ from apimatic_core.types.parameter import Parameter
 from onethingapi.api_helper import APIHelper
 from onethingapi.apis.base_api import BaseApi
 from onethingapi.configuration import Server
-from onethingapi.exceptions.error_exception import (
-    ErrorException,
+from onethingapi.exceptions.error_response_exception import (
+    ErrorResponseException,
 )
 from onethingapi.http.http_method_enum import (
     HttpMethodEnum,
@@ -104,7 +104,8 @@ class ShopsApi(BaseApi):
         `connectPayPal` for that seller.
 
         Args:
-            source (Source): The request form parameter.
+            source (Source): What the shop starts from: a photo (with an optional
+                description), a product link, or a Channel3 product to recommend.
             photo (typing.BinaryIO, optional): `source=photo`: the product photo, up
                 to 8 MB.
             description (str, optional): `source=photo`: a sentence or two about the
@@ -115,17 +116,23 @@ class ShopsApi(BaseApi):
                 `searchProducts`.
             slug (str, optional): The link name you want. If omitted, the AI suggests
                 one.
-            mtype (Type, optional): The request form parameter. Example: auto
+            mtype (Type, optional): `physical` ships, `digital` is a file or an
+                access code, `auto` lets the AI decide.
             delivery (Delivery, optional): For digital products. If omitted, the AI
                 guesses.
             access_url (str, optional): Where buyers use an access code.
             price (float, optional): USD. If omitted, the AI suggests a price.
-            shipping (float, optional): The request form parameter.
-            stock (int, optional): The request form parameter.
-            ship_countries (str, optional): The request form parameter.
-            paypal_email (str, optional): The request form parameter.
-            seller_email (str, optional): The request form parameter.
-            digital_file (typing.BinaryIO, optional): The request form parameter.
+            shipping (float, optional): Physical products: shipping per order, in
+                USD. If omitted, the AI suggests it.
+            stock (int, optional): How many are for sale. Leave out for unlimited.
+            ship_countries (str, optional): Physical products: comma-separated ISO
+                country codes to ship to. Empty means anywhere PayPal ships.
+            paypal_email (str, optional): The PayPal account that gets paid, if the
+                seller doesn't connect one with `connectPayPal`.
+            seller_email (str, optional): Where order notifications go.
+            digital_file (typing.BinaryIO, optional): Digital products sold as a
+                file: the file buyers download, up to 25 MB. Can also be added later
+                with `uploadDigitalFile`.
 
         Returns:
             CreatedShop: Response from the API. Draft created.
@@ -201,17 +208,17 @@ class ShopsApi(BaseApi):
             .deserialize_into(CreatedShop.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("409",
                 "Taken or unavailable (a link name, or a sold-out product).",
-                ErrorException)
+                ErrorResponseException)
             .local_error("429",
                 "Over this network's cap for the call (see **Limits**). Retry after `"
                 "Retry-After` seconds.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def get_shop(self,
@@ -251,7 +258,7 @@ class ShopsApi(BaseApi):
             .deserialize_into(Shop.from_dictionary)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def update_shop(self,
@@ -267,7 +274,7 @@ class ShopsApi(BaseApi):
 
         Args:
             slug (str): The shop's link name (current or former).
-            body (ShopUpdate): The request body parameter.
+            body (ShopUpdate): The fields to change; anything left out stays as it is.
 
         Returns:
             ApiShopsResponse: Response from the API. Saved.
@@ -304,10 +311,10 @@ class ShopsApi(BaseApi):
             .deserialize_into(ApiShopsResponse.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def refine_shop_design(self,
@@ -320,7 +327,7 @@ class ShopsApi(BaseApi):
 
         Args:
             slug (str): The shop's link name (current or former).
-            body (ApiShopsRefineRequest): The request body parameter.
+            body (ApiShopsRefineRequest): The design change, in words.
 
         Returns:
             ApiShopsRefineResponse: Response from the API. The new design.
@@ -357,17 +364,17 @@ class ShopsApi(BaseApi):
             .deserialize_into(ApiShopsRefineResponse.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("429",
                 "Over this network's cap for the call (see **Limits**). Retry after `"
                 "Retry-After` seconds.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def regenerate_hero_art(self,
@@ -407,14 +414,14 @@ class ShopsApi(BaseApi):
             .deserialize_into(Ok.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("429",
                 "Over this network's cap for the call (see **Limits**). Retry after `"
                 "Retry-After` seconds.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def upload_digital_file(self,
@@ -462,10 +469,10 @@ class ShopsApi(BaseApi):
             .deserialize_into(ApiShopsFileResponse.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def add_photos(self,
@@ -516,10 +523,10 @@ class ShopsApi(BaseApi):
             .deserialize_into(ShopPhotos.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def set_photo_order(self,
@@ -532,7 +539,7 @@ class ShopsApi(BaseApi):
 
         Args:
             slug (str): The shop's link name (current or former).
-            body (ApiShopsPhotosRequest): The request body parameter.
+            body (ApiShopsPhotosRequest): Every photo id, in the new order.
 
         Returns:
             ShopPhotos: Response from the API. The shop's photos, cover first.
@@ -569,10 +576,10 @@ class ShopsApi(BaseApi):
             .deserialize_into(ShopPhotos.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def check_missing_details(self,
@@ -621,17 +628,17 @@ class ShopsApi(BaseApi):
             .deserialize_into(Suggestions.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("429",
                 "Over this network's cap for the call (see **Limits**). Retry after `"
                 "Retry-After` seconds.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def match_color_photos(self,
@@ -645,7 +652,7 @@ class ShopsApi(BaseApi):
 
         Args:
             slug (str): The shop's link name (current or former).
-            body (ApiShopsMatchPhotosRequest): The request body parameter.
+            body (ApiShopsMatchPhotosRequest): The colour option's values.
 
         Returns:
             ApiShopsMatchPhotosResponse: Response from the API. A photo id for each
@@ -683,17 +690,17 @@ class ShopsApi(BaseApi):
             .deserialize_into(ApiShopsMatchPhotosResponse.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("429",
                 "Over this network's cap for the call (see **Limits**). Retry after `"
                 "Retry-After` seconds.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def set_color_photos(self,
@@ -707,7 +714,7 @@ class ShopsApi(BaseApi):
 
         Args:
             slug (str): The shop's link name (current or former).
-            body (ApiShopsColorPhotosRequest): The request body parameter.
+            body (ApiShopsColorPhotosRequest): The photo for each colour.
 
         Returns:
             ApiShopsColorPhotosResponse: Response from the API. The colours that were
@@ -745,10 +752,10 @@ class ShopsApi(BaseApi):
             .deserialize_into(ApiShopsColorPhotosResponse.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def connect_pay_pal(self,
@@ -773,7 +780,8 @@ class ShopsApi(BaseApi):
 
         Args:
             slug (str): The shop's link name (current or former).
-            body (ApiShopsPaypalRequest, optional): The request body parameter.
+            body (ApiShopsPaypalRequest, optional): Platform keys only: where PayPal
+                sends the seller back.
 
         Returns:
             ApiShopsPaypalResponse: Response from the API. Where to send the seller.
@@ -809,13 +817,13 @@ class ShopsApi(BaseApi):
             .deserialize_into(ApiShopsPaypalResponse.from_dictionary)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("503",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def get_pay_pal_connection(self,
@@ -857,13 +865,13 @@ class ShopsApi(BaseApi):
             .deserialize_into(ApiShopsPaypalResponse1.from_dictionary)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("503",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def disconnect_pay_pal(self,
@@ -903,5 +911,5 @@ class ShopsApi(BaseApi):
             .deserialize_into(Ok.from_dictionary)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()

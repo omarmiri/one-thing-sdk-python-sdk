@@ -1,6 +1,8 @@
 
 # Platform Shop
 
+A shop as a platform API key lists it.
+
 ## Structure
 
 `PlatformShop`
@@ -9,17 +11,17 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `slug` | `str` | Required | - |
-| `status` | [`Status`](../../doc/models/status.md) | Required | - |
-| `name` | `str` | Required | - |
-| `headline` | `str` | Optional | - |
-| `product_type` | [`ProductType1`](../../doc/models/product-type-1.md) | Required | - |
-| `price` | [`AgentMoney`](../../doc/models/agent-money.md) | Required | - |
+| `slug` | `str` | Required | The shop's link name. |
+| `status` | [`Status3`](../../doc/models/status-3.md) | Required | `draft` until the seller goes live. |
+| `name` | `str` | Required | The product's name. |
+| `headline` | `str` | Optional | The shop's one-line pitch. |
+| `product_type` | [`ProductType3`](../../doc/models/product-type-3.md) | Required | `physical`, `digital` or `referral`. |
+| `price` | [`AgentMoney`](../../doc/models/agent-money.md) | Required | An amount of money, as a number and as a label. |
 | `url` | `str` | Required | The shop page buyers pay on. |
 | `cover` | `str` | Optional | The cover image's URL. |
 | `paypal_connected` | `bool` | Required | The seller connected a PayPal account that can be paid. |
 | `sales` | `int` | Required | Paid orders. |
-| `created_at` | `datetime` | Required | - |
+| `created_at` | `datetime` | Required | When the shop was made. |
 
 ## Example
 
@@ -28,25 +30,25 @@ import dateutil.parser
 
 from onethingapi.models.agent_money import AgentMoney
 from onethingapi.models.platform_shop import PlatformShop
-from onethingapi.models.product_type_1 import ProductType1
-from onethingapi.models.status import Status
+from onethingapi.models.product_type_3 import ProductType3
+from onethingapi.models.status_3 import Status3
 
 platform_shop = PlatformShop(
-    slug='slug0',
-    status=Status.DRAFT,
-    name='name6',
-    product_type=ProductType1.DIGITAL,
+    slug='vintageskates',
+    status=Status3.DRAFT,
+    name='Vintage Cream and Red Roller Skates',
+    product_type=ProductType3.PHYSICAL,
     price=AgentMoney(
-        amount=48.5,
+        amount=240,
         currency='USD',
-        label='$48.50'
+        label='$240.00'
     ),
-    url='url0',
-    paypal_connected=False,
-    sales=2,
-    created_at=dateutil.parser.parse('2016-03-13T12:52:32.123Z'),
-    headline='headline4',
-    cover='cover0'
+    url='https://one-thing-ash0.onrender.com/vintageskates',
+    paypal_connected=True,
+    sales=12,
+    created_at=dateutil.parser.parse('2026-10-22T02:41:37Z'),
+    headline='Classic quad skates crafted with walnut burl heels',
+    cover='https://one-thing-ash0.onrender.com/api/blobs/LFRvGuTU3D8i334X'
 )
 ```
 

@@ -1,6 +1,8 @@
 
 # Api Shops Paypal Response 1
 
+The shop's PayPal connection.
+
 ## Structure
 
 `ApiShopsPaypalResponse1`
@@ -21,11 +23,11 @@ from onethingapi.models.api_shops_paypal_response_1 import ApiShopsPaypalRespons
 from onethingapi.models.pay_pal_status import PayPalStatus
 
 api_shops_paypal_response_1 = ApiShopsPaypalResponse1(
-    merchant_id='merchantId0',
+    merchant_id='7MZJ4QXN8K2LA',
     status=PayPalStatus(
-        receivable=False,
-        email_confirmed=False,
-        checked_at=dateutil.parser.parse('2016-03-13T12:52:32.123Z')
+        receivable=True,
+        email_confirmed=True,
+        checked_at=dateutil.parser.parse('2026-10-22T02:41:37Z')
     )
 )
 ```

@@ -26,7 +26,7 @@ def verify_access_code(self,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`ApiAccessVerifyRequest`](../../doc/models/api-access-verify-request.md) | Body, Required | - |
+| `body` | [`ApiAccessVerifyRequest`](../../doc/models/api-access-verify-request.md) | Body, Required | The shop and the code to check. |
 
 ## Response Type
 

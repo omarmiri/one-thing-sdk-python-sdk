@@ -1,6 +1,8 @@
 
 # Api Access Verify Request
 
+The code to check, and which shop it's for.
+
 ## Structure
 
 `ApiAccessVerifyRequest`
@@ -10,7 +12,7 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `shop` | `str` | Required | The shop's link name. |
-| `code` | `str` | Required | - |
+| `code` | `str` | Required | The access code the buyer entered. Case and dashes don't matter. |
 
 ## Example
 

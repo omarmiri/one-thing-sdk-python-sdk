@@ -1,6 +1,8 @@
 
 # Api Shops Match Photos Response
 
+Gemini's matches.
+
 ## Structure
 
 `ApiShopsMatchPhotosResponse`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `matches` | `Dict[str, str]` | Required | - |
+| `matches` | `Dict[str, str]` | Required | Colour label → photo id. |
 
 ## Example
 

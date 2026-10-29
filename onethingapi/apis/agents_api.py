@@ -11,8 +11,8 @@ from apimatic_core.types.parameter import Parameter
 from onethingapi.api_helper import APIHelper
 from onethingapi.apis.base_api import BaseApi
 from onethingapi.configuration import Server
-from onethingapi.exceptions.error_exception import (
-    ErrorException,
+from onethingapi.exceptions.error_response_exception import (
+    ErrorResponseException,
 )
 from onethingapi.exceptions.json_rpc_response_error_exception import (
     JsonRpcResponseErrorException,
@@ -199,15 +199,17 @@ class AgentsApi(BaseApi):
             .local_error("400",
                 "A missing or unknown option value, or sold out. `error` names the va"
                 "lid values.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("403",
                 "A known crawler or link previewer. They don't place orders.",
-                ErrorException)
-            .local_error("404", "No live shop with that link name.", ErrorException)
+                ErrorResponseException)
+            .local_error("404",
+                "No live shop with that link name.",
+                ErrorResponseException)
             .local_error("429",
                 "Over this network's cap for the call (see **Limits**). Retry after `"
                 "Retry-After` seconds.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def get_agent_order(self,
@@ -261,7 +263,7 @@ class AgentsApi(BaseApi):
             ResponseHandler()
             .deserializer(APIHelper.json_deserialize)
             .deserialize_into(AgentOrder.from_dictionary)
-            .local_error("404", "No order with that id.", ErrorException),
+            .local_error("404", "No order with that id.", ErrorResponseException),
         ).execute()
 
     def get_agent_product(self,
@@ -317,7 +319,9 @@ class AgentsApi(BaseApi):
             ResponseHandler()
             .deserializer(APIHelper.json_deserialize)
             .deserialize_into(AgentProduct.from_dictionary)
-            .local_error("404", "No live shop with that link name.", ErrorException),
+            .local_error("404",
+                "No live shop with that link name.",
+                ErrorResponseException),
         ).execute()
 
     def call_mcp(self,
@@ -382,7 +386,8 @@ class AgentsApi(BaseApi):
         with `isError: true`, so the model can read them and try something else.
 
         Args:
-            body (JsonRpcRequest | List[JsonRpcRequest]): The request body parameter.
+            body (JsonRpcRequest | List[JsonRpcRequest]): A JSON-RPC 2.0 request or
+                batch.
 
         Returns:
             JsonRpcResponse | List[JsonRpcResponse]: Response from the API. The

@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class Faq(object):
     """Implementation of the 'Faq' model.
 
+    One question and its answer.
+
     Attributes:
-        q (str): The model property of type str.
-        a (str): The model property of type str.
+        q (str): The question.
+        a (str): The answer.
 
     """
 

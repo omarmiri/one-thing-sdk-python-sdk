@@ -1,6 +1,8 @@
 
 # Api Shops Response
 
+The shop was saved.
+
 ## Structure
 
 `ApiShopsResponse`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `ok` | `bool` | Required | - |
+| `ok` | `bool` | Required | Always `true`. |
 | `slug` | `str` | Required | The shop's link name after this change. |
 
 ## Example
@@ -18,8 +20,8 @@
 from onethingapi.models.api_shops_response import ApiShopsResponse
 
 api_shops_response = ApiShopsResponse(
-    ok=False,
-    slug='slug6'
+    ok=True,
+    slug='vintageskates'
 )
 ```
 

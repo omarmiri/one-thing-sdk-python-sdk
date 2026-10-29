@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class ApiSlugsCheckResponse(object):
     """Implementation of the 'Api Slugs Check Response' model.
 
+    Whether the link name can be used.
+
     Attributes:
-        slug (str): The model property of type str.
-        available (bool): The model property of type bool.
+        slug (str): The name, normalised.
+        available (bool): True if no other shop has it and it isn't reserved.
         problem (str): Why not, when unavailable.
 
     """

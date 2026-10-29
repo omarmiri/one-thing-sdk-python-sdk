@@ -20,9 +20,9 @@ class Suggestions(object):
     Attributes:
         one_of_a_kind (bool): A single item (vintage, handmade), so options and stock
             don't apply.
-        options (List[Option]): The model property of type List[Option].
-        missing_facts (List[MissingFact]): The model property of type
-            List[MissingFact].
+        options (List[Option]): Options buyers will likely want to pick.
+        missing_facts (List[MissingFact]): Questions buyers will ask that the listing
+            doesn't answer yet.
 
     """
 

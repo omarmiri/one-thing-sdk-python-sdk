@@ -54,8 +54,8 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Create Checkout Order
@@ -76,7 +76,7 @@ def create_checkout_order(self,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`ApiOrdersRequest`](../../doc/models/api-orders-request.md) | Body, Required | - |
+| `body` | [`ApiOrdersRequest`](../../doc/models/api-orders-request.md) | Body, Required | The shop and the buyer's pick. |
 
 ## Response Type
 
@@ -107,12 +107,12 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 409 | Taken or unavailable (a link name, or a sold-out product). | [`ErrorException`](../../doc/models/error-exception.md) |
-| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 409 | Taken or unavailable (a link name, or a sold-out product). | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 429 | Over this network's cap for the call (see **Limits**). Retry after `Retry-After` seconds. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 503 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Capture Checkout Order
@@ -161,10 +161,10 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 402 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 402 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 | 409 | The buyer hasn't approved the order yet. | [`ApiOrdersCapture409ErrorException`](../../doc/models/api-orders-capture-409-error-exception.md) |
-| 410 | The last unit (or the last of the buyer's combination) sold while they were paying, or the PayPal checkout expired before they paid. The payment isn't captured, so the buyer isn't charged. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 422 | The buyer's funding source was declined (`INSTRUMENT_DECLINED`); they can try another. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 410 | The last unit (or the last of the buyer's combination) sold while they were paying, or the PayPal checkout expired before they paid. The payment isn't captured, so the buyer isn't charged. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 422 | The buyer's funding source was declined (`INSTRUMENT_DECLINED`); they can try another. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 502 | Gemini, PayPal or Channel3 failed or isn't configured. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 

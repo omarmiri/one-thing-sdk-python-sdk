@@ -10,15 +10,17 @@ from onethingapi.api_helper import APIHelper
 class ProductCard(object):
     """Implementation of the 'ProductCard' model.
 
+    A Channel3 product in search results.
+
     Attributes:
-        id (str): The model property of type str.
-        title (str): The model property of type str.
-        brand (str): The model property of type str.
-        image (str): The model property of type str.
-        price (float): The model property of type float.
-        currency (str): The model property of type str.
+        id (str): Channel3's product id: pass it to `createShop` as `productId`.
+        title (str): The product's name.
+        brand (str): The brand, when known.
+        image (str): The product image's URL.
+        price (float): The best offer's price.
+        currency (str): ISO 4217 currency code.
         retailer (str): The store with the best offer.
-        retailers (int): The model property of type int.
+        retailers (int): How many stores sell it.
         commission (float): Best commission rate across offers, 0–1.
 
     """

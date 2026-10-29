@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class Shipping(object):
     """Implementation of the 'Shipping' model.
 
+    Shipping cost and destinations.
+
     Attributes:
-        amount (float): The model property of type float.
-        currency (str): The model property of type str.
+        amount (float): Shipping cost per order.
+        currency (str): ISO 4217 currency code.
         ships_to (List[str]): Country codes; empty means anywhere PayPal ships.
 
     """

@@ -20,15 +20,17 @@ class AgentCreatedOrder(object):
         agent_name (str): Who this request was credited to in the seller's stats: a
             recognised user agent, else the name the agent gave itself (`?agent=`, or
             the MCP client's name), else the user agent's first word.
-        order_id (str): The model property of type str.
-        status (str): The model property of type str.
+        order_id (str): The order's id, for `get_order` and `getAgentOrder`.
+        status (str): Always `awaiting_buyer_approval`: nothing is charged until the
+            buyer approves at PayPal.
         total (str): The total with shipping, as a label.
         options (Dict[str, str]): The buyer's pick, one value per option, keyed by
             option name.
         pay_url (str): Where the buyer pays (redirects to PayPal). Safe to show in
             chat.
         status_url (str): `getAgentOrder` for this order.
-        next_step (str): The model property of type str.
+        next_step (str): What the agent should do next, in plain words: show
+            `pay_url`, then check `status_url` once the buyer says they've paid.
 
     """
 

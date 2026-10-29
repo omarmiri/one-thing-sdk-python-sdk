@@ -12,19 +12,22 @@ from onethingapi.models.shop_option import ShopOption
 class ShopUpdate(object):
     """Implementation of the 'ShopUpdate' model.
 
+    The fields to change. Anything left out stays as it is.
+
     Attributes:
-        slug (str): The model property of type str.
-        status (Status): The model property of type Status.
+        slug (str): A new link name. The old one keeps redirecting.
+        status (Status): `live` publishes the shop; `draft` takes it down.
         product_type (ProductType): `referral` only for shops created from Channel3.
-        price (float): The model property of type float.
-        shipping (float): The model property of type float.
-        stock (int): The model property of type int.
-        ship_countries (str): The model property of type str.
-        delivery (Delivery1): The model property of type Delivery1.
-        access_url (str): The model property of type str.
-        paypal_email (str): The model property of type str.
-        seller_email (str): The model property of type str.
-        zapier_hook_url (str): The model property of type str.
+        price (float): The price in USD.
+        shipping (float): Shipping per order, in USD.
+        stock (int): How many are for sale; null for unlimited.
+        ship_countries (str): Comma-separated ISO country codes; null or empty means
+            anywhere PayPal ships.
+        delivery (Delivery1): Digital products: `file` or `access_code`.
+        access_url (str): Access-code products: where buyers enter their code.
+        paypal_email (str): The PayPal account paid when no account is connected.
+        seller_email (str): Where order notifications go.
+        zapier_hook_url (str): A Zapier Catch Hook for order events; null removes it.
         in_gallery (bool): Feature the shop at `/gallery` while it's live. Off by
             default.
         options (List[ShopOption]): What the buyer picks (physical products only),

@@ -10,8 +10,10 @@ from onethingapi.models.photo import Photo
 class ShopPhotos(object):
     """Implementation of the 'ShopPhotos' model.
 
+    The shop's photos.
+
     Attributes:
-        photos (List[Photo]): The model property of type List[Photo].
+        photos (List[Photo]): Every photo, the cover first.
 
     """
 

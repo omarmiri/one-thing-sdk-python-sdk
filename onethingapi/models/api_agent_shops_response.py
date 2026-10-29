@@ -12,12 +12,13 @@ from onethingapi.models.agent_shop_summary import (
 class ApiAgentShopsResponse(object):
     """Implementation of the 'Api Agent Shops Response' model.
 
+    The matching shops, with a reply to show the buyer.
+
     Attributes:
         show_buyer (str): A suggested reply to the buyer, in Markdown: each shop's
             cover photo as an image, its name, price and headline, then "Which one?".
             Chats that block images from other sites just leave the image lines out.
-        shops (List[AgentShopSummary]): The model property of type
-            List[AgentShopSummary].
+        shops (List[AgentShopSummary]): Shops, best match first.
         matched (bool): False when nothing matched the query and `shops` is the
             newest gallery shops instead; `show_buyer` then starts by saying so.
         mcp_server (str): The MCP server to order through.

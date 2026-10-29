@@ -11,8 +11,8 @@ from apimatic_core.types.parameter import Parameter
 from onethingapi.api_helper import APIHelper
 from onethingapi.apis.base_api import BaseApi
 from onethingapi.configuration import Server
-from onethingapi.exceptions.error_exception import (
-    ErrorException,
+from onethingapi.exceptions.error_response_exception import (
+    ErrorResponseException,
 )
 from onethingapi.http.http_method_enum import (
     HttpMethodEnum,
@@ -65,8 +65,8 @@ class ProductsApi(BaseApi):
             .deserialize_into(ApiChannel3SearchResponse.from_dictionary)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("503",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()

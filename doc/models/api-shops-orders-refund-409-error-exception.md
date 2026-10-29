@@ -1,6 +1,8 @@
 
 # Api Shops Orders Refund 409 Error Exception
 
+Why the order can't be refunded here.
+
 ## Structure
 
 `ApiShopsOrdersRefund409ErrorException`

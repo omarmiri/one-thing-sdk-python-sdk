@@ -1,6 +1,8 @@
 
 # Api Access Verify Response
 
+Whether the code is valid.
+
 ## Structure
 
 `ApiAccessVerifyResponse`
@@ -9,7 +11,7 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `valid` | `bool` | Required | - |
+| `valid` | `bool` | Required | True if the code belongs to a paid, unrefunded order for this shop. |
 | `product` | `str` | Optional | The product name, when valid. |
 
 ## Example
@@ -18,8 +20,8 @@
 from onethingapi.models.api_access_verify_response import ApiAccessVerifyResponse
 
 api_access_verify_response = ApiAccessVerifyResponse(
-    valid=False,
-    product='product6'
+    valid=True,
+    product='Vintage Cream and Red Roller Skates'
 )
 ```
 

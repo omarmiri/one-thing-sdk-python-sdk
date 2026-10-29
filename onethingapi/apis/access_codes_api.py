@@ -37,7 +37,7 @@ class AccessCodesApi(BaseApi):
         link names, and codes typed loosely (lower case, spaces, no dashes).
 
         Args:
-            body (ApiAccessVerifyRequest): The request body parameter.
+            body (ApiAccessVerifyRequest): The shop and the code to check.
 
         Returns:
             ApiAccessVerifyResponse: Response from the API. The answer. Invalid codes

@@ -15,11 +15,11 @@ class Referral(object):
     shop.
 
     Attributes:
-        product_id (str): The model property of type str.
-        title (str): The model property of type str.
-        brand (str): The model property of type str.
-        image (str): The model property of type str.
-        offers (List[Offer]): The model property of type List[Offer].
+        product_id (str): Channel3's product id.
+        title (str): The product's name.
+        brand (str): The brand, when known.
+        image (str): The product image's URL.
+        offers (List[Offer]): Stores that sell it, with tracked links.
 
     """
 

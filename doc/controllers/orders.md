@@ -46,7 +46,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 result = orders_api.list_orders(slug)
 print(result)
@@ -94,7 +94,7 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Mark Order Shipped
@@ -118,7 +118,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 |  --- | --- | --- | --- |
 | `slug` | `str` | Template, Required | The shop's link name (current or former). |
 | `order_id` | `str` | Template, Required | OneThing's order id (`Order.id`). |
-| `body` | [`ApiShopsOrdersShipRequest`](../../doc/models/api-shops-orders-ship-request.md) | Body, Required | - |
+| `body` | [`ApiShopsOrdersShipRequest`](../../doc/models/api-shops-orders-ship-request.md) | Body, Required | The carrier and tracking number. |
 
 ## Response Type
 
@@ -129,7 +129,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 order_id = 'pX4kR9tVb2nQ7sLe'
 
@@ -159,8 +159,8 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Refund Order
@@ -184,7 +184,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 |  --- | --- | --- | --- |
 | `slug` | `str` | Template, Required | The shop's link name (current or former). |
 | `order_id` | `str` | Template, Required | OneThing's order id (`Order.id`). |
-| `body` | [`ApiShopsOrdersRefundRequest`](../../doc/models/api-shops-orders-refund-request.md) | Body, Optional | - |
+| `body` | [`ApiShopsOrdersRefundRequest`](../../doc/models/api-shops-orders-refund-request.md) | Body, Optional | Optional. `record: true` records a refund made in PayPal. |
 
 ## Response Type
 
@@ -195,7 +195,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 order_id = 'pX4kR9tVb2nQ7sLe'
 
@@ -222,7 +222,7 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop or order, or the token doesn't match the shop. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No such shop or order, or the token doesn't match the shop. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 | 409 | Not refundable here; `error` says why. | [`ApiShopsOrdersRefund409ErrorException`](../../doc/models/api-shops-orders-refund-409-error-exception.md) |
 
 
@@ -254,7 +254,7 @@ This endpoint requires [AdminToken](../../doc/auth/custom-header-signature.md) *
 ## Example Usage
 
 ```python
-slug = 'raptorrush'
+slug = 'vintageskates'
 
 result = orders_api.list_webhook_events(slug)
 print(result)
@@ -280,5 +280,5 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 404 | No such shop, or the admin token or API key doesn't match it. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 

@@ -14,8 +14,8 @@ from onethingapi.configuration import Server
 from onethingapi.exceptions.api_orders_capture_409_error_exception import (
     ApiOrdersCapture409ErrorException,
 )
-from onethingapi.exceptions.error_exception import (
-    ErrorException,
+from onethingapi.exceptions.error_response_exception import (
+    ErrorResponseException,
 )
 from onethingapi.http.http_method_enum import (
     HttpMethodEnum,
@@ -69,10 +69,10 @@ class CheckoutApi(BaseApi):
             .deserialize_into(ApiPaypalClientTokenResponse.from_dictionary)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("503",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def create_checkout_order(self,
@@ -87,7 +87,7 @@ class CheckoutApi(BaseApi):
         combination answers 409.
 
         Args:
-            body (ApiOrdersRequest): The request body parameter.
+            body (ApiOrdersRequest): The shop and the buyer's pick.
 
         Returns:
             ApiOrdersResponse: Response from the API. PayPal order created.
@@ -118,23 +118,23 @@ class CheckoutApi(BaseApi):
             .deserialize_into(ApiOrdersResponse.from_dictionary)
             .local_error("400",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("409",
                 "Taken or unavailable (a link name, or a sold-out product).",
-                ErrorException)
+                ErrorResponseException)
             .local_error("429",
                 "Over this network's cap for the call (see **Limits**). Retry after `"
                 "Retry-After` seconds.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("503",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()
 
     def capture_checkout_order(self,
@@ -177,10 +177,10 @@ class CheckoutApi(BaseApi):
             .deserialize_into(ApiOrdersCaptureResponse.from_dictionary)
             .local_error("402",
                 "Something in the request needs fixing; `error` says what.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("404",
                 "No such shop, or the admin token or API key doesn't match it.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("409",
                 "The buyer hasn't approved the order yet.",
                 ApiOrdersCapture409ErrorException)
@@ -188,12 +188,12 @@ class CheckoutApi(BaseApi):
                 "The last unit (or the last of the buyer's combination) sold while th"
                 "ey were paying, or the PayPal checkout expired before they paid. The"
                 " payment isn't captured, so the buyer isn't charged.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("422",
                 "The buyer's funding source was declined (`INSTRUMENT_DECLINED`); the"
                 "y can try another.",
-                ErrorException)
+                ErrorResponseException)
             .local_error("502",
                 "Gemini, PayPal or Channel3 failed or isn't configured.",
-                ErrorException),
+                ErrorResponseException),
         ).execute()

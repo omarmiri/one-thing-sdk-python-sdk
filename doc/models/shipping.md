@@ -1,6 +1,8 @@
 
 # Shipping
 
+Shipping cost and destinations.
+
 ## Structure
 
 `Shipping`
@@ -9,8 +11,8 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `amount` | `float` | Required | - |
-| `currency` | `str` | Required | - |
+| `amount` | `float` | Required | Shipping cost per order. |
+| `currency` | `str` | Required | ISO 4217 currency code. |
 | `ships_to` | `List[str]` | Required | Country codes; empty means anywhere PayPal ships. |
 
 ## Example
@@ -19,12 +21,11 @@
 from onethingapi.models.shipping import Shipping
 
 shipping = Shipping(
-    amount=113.16,
-    currency='currency4',
+    amount=15,
+    currency='USD',
     ships_to=[
-        'ships_to7',
-        'ships_to8',
-        'ships_to9'
+        'US',
+        'CA'
     ]
 )
 ```

@@ -1,6 +1,8 @@
 
 # Missing Fact
 
+One question to answer.
+
 ## Structure
 
 `MissingFact`
@@ -9,9 +11,9 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `label` | `str` | Required | - |
-| `question` | `str` | Required | - |
-| `placeholder` | `str` | Required | - |
+| `label` | `str` | Required | The product detail it becomes. |
+| `question` | `str` | Required | The question, for the seller. |
+| `placeholder` | `str` | Required | An example answer. |
 
 ## Example
 

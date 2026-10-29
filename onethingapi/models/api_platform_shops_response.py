@@ -12,8 +12,10 @@ from onethingapi.models.platform_shop import (
 class ApiPlatformShopsResponse(object):
     """Implementation of the 'Api Platform Shops Response' model.
 
+    The account's shops.
+
     Attributes:
-        shops (List[PlatformShop]): The model property of type List[PlatformShop].
+        shops (List[PlatformShop]): Shops, newest first.
 
     """
 

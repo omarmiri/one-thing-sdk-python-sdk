@@ -1,6 +1,8 @@
 
 # Api Shops Color Photos Request
 
+Which photo shows each colour.
+
 ## Structure
 
 `ApiShopsColorPhotosRequest`
@@ -18,7 +20,8 @@ from onethingapi.models.api_shops_color_photos_request import ApiShopsColorPhoto
 
 api_shops_color_photos_request = ApiShopsColorPhotosRequest(
     photos={
-        'key0': 'photos4'
+        'Ice Blue': 'zrySajNyao6_j11x',
+        'Amber': None
     }
 )
 ```

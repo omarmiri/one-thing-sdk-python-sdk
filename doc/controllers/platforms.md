@@ -28,7 +28,7 @@ This endpoint requires [PlatformKey](../../doc/auth/oauth-2-bearer-token.md)
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `status` | [`Status`](../../doc/models/status.md) | Query, Optional | Only shops with this status, e.g. `live` for a public catalog. |
+| `status` | [`Status5`](../../doc/models/status-5.md) | Query, Optional | Only shops with this status, e.g. `live` for a public catalog. |
 
 ## Response Type
 
@@ -39,7 +39,7 @@ This endpoint requires [PlatformKey](../../doc/auth/oauth-2-bearer-token.md)
 ## Example Usage
 
 ```python
-status = Status.LIVE
+status = Status5.LIVE
 
 result = platforms_api.list_my_shops(
     status=status
@@ -76,5 +76,5 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | No API key, or it's wrong or revoked. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 401 | No API key, or it's wrong or revoked. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 

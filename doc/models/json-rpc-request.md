@@ -1,6 +1,8 @@
 
 # Json Rpc Request
 
+A JSON-RPC 2.0 request to the MCP server.
+
 ## Structure
 
 `JsonRpcRequest`
@@ -9,9 +11,9 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `jsonrpc` | `str` | Required, Constant | **Value**: `"2.0"` |
+| `jsonrpc` | `str` | Required, Constant | Always `2.0`.<br><br>**Value**: `"2.0"` |
 | `id` | str \| int \| None | Optional | This is a container for one-of cases. |
-| `method` | [`Method`](../../doc/models/method.md) | Required | - |
+| `method` | [`Method`](../../doc/models/method.md) | Required | The MCP method. `tools/call` runs a tool; `tools/list` lists them. |
 | `params` | `Any` | Optional | For `tools/call`: `{ name, arguments }`. |
 
 ## Example
@@ -23,9 +25,9 @@ from onethingapi.models.json_rpc_request import JsonRpcRequest
 from onethingapi.models.method import Method
 
 json_rpc_request = JsonRpcRequest(
-    method=Method.PING,
-    id='String1',
-    params=jsonpickle.decode('{"key1":"val1","key2":"val2"}')
+    method=Method.ENUM_TOOLSCALL,
+    id=1,
+    params=jsonpickle.decode('{"name":"get_product","arguments":{"shop":"vintageskates"}}')
 )
 ```
 

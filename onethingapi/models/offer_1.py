@@ -10,12 +10,14 @@ from onethingapi.api_helper import APIHelper
 class Offer1(object):
     """Implementation of the 'Offer1' model.
 
+    One store's offer.
+
     Attributes:
-        retailer (str): The model property of type str.
-        price (float): The model property of type float.
-        currency (str): The model property of type str.
-        in_stock (bool): The model property of type bool.
-        url (str): The model property of type str.
+        retailer (str): The store.
+        price (float): The store's price.
+        currency (str): ISO 4217 currency code.
+        in_stock (bool): Whether the store has it in stock.
+        url (str): A tracked buy link at that store.
 
     """
 

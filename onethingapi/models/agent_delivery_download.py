@@ -13,9 +13,10 @@ class AgentDeliveryDownload(object):
     A digital file to download.
 
     Attributes:
-        mtype (str): The model property of type str.
-        download_url (str): The model property of type str.
-        note (str): The model property of type str.
+        mtype (str): Always `download`.
+        download_url (str): A private link to the file. It works 5 times over 14 days.
+        note (str): How long the link lasts and how many downloads it allows, in
+            words.
 
     """
 

@@ -21,23 +21,25 @@ class DesignSpec(object):
     What Gemini designed. OneThing's templates render it; Gemini never writes HTML.
 
     Attributes:
-        product_type (ProductType2): The model property of type ProductType2.
-        product_name (str): The model property of type str.
-        layout (Layout): The model property of type Layout.
-        palette (Palette): The model property of type Palette.
-        fonts (Fonts): The model property of type Fonts.
-        eyebrow (str): The model property of type str.
-        headline (str): The model property of type str.
-        subheadline (str): The model property of type str.
-        story (str): The model property of type str.
-        bullets (List[str]): The model property of type List[str].
-        details (List[Detail]): The model property of type List[Detail].
-        faq (List[Faq]): The model property of type List[Faq].
-        cta_label (str): The model property of type str.
-        suggested_price_usd (float): The model property of type float.
-        suggested_shipping_usd (float): The model property of type float.
-        image_alt (str): The model property of type str.
-        hero_prompt (str): The model property of type str.
+        product_type (ProductType2): What the AI decided the product is.
+        product_name (str): The product's name.
+        layout (Layout): The page template: `bold-hero` (image first, punchy),
+            `editorial` (magazine), `minimal` (quiet, lots of space) or `playful`.
+        palette (Palette): The page colours, taken from the photo. Text colours are
+            checked for contrast.
+        fonts (Fonts): Google Fonts for the page.
+        eyebrow (str): A short label above the headline.
+        headline (str): The page's main headline.
+        subheadline (str): A line under the headline.
+        story (str): A short paragraph about the product.
+        bullets (List[str]): Short selling points.
+        details (List[Detail]): Product facts shown on the page.
+        faq (List[Faq]): Questions buyers will ask, with answers.
+        cta_label (str): The buy button's text.
+        suggested_price_usd (float): The AI's price suggestion, in USD.
+        suggested_shipping_usd (float): The AI's shipping suggestion, in USD.
+        image_alt (str): Alt text for the product photo.
+        hero_prompt (str): The prompt used to generate hero art for the page.
 
     """
 

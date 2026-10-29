@@ -32,7 +32,7 @@ def sign_in(self,
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`ApiAccountSigninRequest`](../../doc/models/api-account-signin-request.md) | Body, Required | - |
+| `body` | [`ApiAccountSigninRequest`](../../doc/models/api-account-signin-request.md) | Body, Required | The email or phone number to sign in with. |
 
 ## Response Type
 
@@ -65,7 +65,7 @@ print(result)
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Something in the request needs fixing; `error` says what. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 400 | Something in the request needs fixing; `error` says what. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 
 
 # Sign Out
@@ -126,7 +126,7 @@ def log_in_with_pay_pal(self,
 ## Example Usage
 
 ```python
-next = '/new'
+next = '/account'
 
 accounts_api.log_in_with_pay_pal(
     next=next
@@ -137,5 +137,5 @@ accounts_api.log_in_with_pay_pal(
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 503 | Log in with PayPal isn't switched on for this server. | [`ErrorException`](../../doc/models/error-exception.md) |
+| 503 | Log in with PayPal isn't switched on for this server. | [`ErrorResponseException`](../../doc/models/error-response-exception.md) |
 

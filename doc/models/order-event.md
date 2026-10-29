@@ -1,6 +1,8 @@
 
 # Order Event
 
+What OneThing posts to the seller's Zapier hook.
+
 ## Structure
 
 `OrderEvent`
@@ -9,13 +11,15 @@
 
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `event` | [`Event`](../../doc/models/event.md) | Required | - |
-| `shop` | [`Shop1`](../../doc/models/shop-1.md) | Required | - |
-| `order` | [`Order1`](../../doc/models/order-1.md) | Required | - |
+| `event` | [`Event`](../../doc/models/event.md) | Required | What happened. |
+| `shop` | [`Shop1`](../../doc/models/shop-1.md) | Required | The shop the order belongs to. |
+| `order` | [`Order1`](../../doc/models/order-1.md) | Required | The order. |
 
 ## Example
 
 ```python
+import jsonpickle
+
 from onethingapi.models.event import Event
 from onethingapi.models.order_1 import Order1
 from onethingapi.models.order_event import OrderEvent
@@ -24,16 +28,21 @@ from onethingapi.models.shop_1 import Shop1
 order_event = OrderEvent(
     event=Event.ENUM_ORDERPAID,
     shop=Shop1(
-        slug='slug4',
-        name='name0',
-        url='url4'
+        slug='vintageskates',
+        name='Vintage Cream and Red Roller Skates',
+        url='https://one-thing-ash0.onrender.com/vintageskates'
     ),
     order=Order1(
-        id='id6',
-        paypal_order_id='paypal_order_id6',
-        amount='2.99',
-        currency='currency6',
-        buyer_name='buyer_name4'
+        id='pX4kR9tVb2nQ7sLe',
+        paypal_order_id='5O190127TN364715T',
+        amount='255.00',
+        currency='USD',
+        buyer_name='Sam Rivera',
+        buyer_email='sam@example.com',
+        shipping_address=jsonpickle.decode('{"address_line_1":"1 Main St","admin_area_2":"Springfield","admin_area_1":"IL","postal_code":"62701","country_code":"US"}'),
+        fulfillment_status='to_ship',
+        tracking_number='9400111899223197428490',
+        carrier='USPS'
     )
 )
 ```

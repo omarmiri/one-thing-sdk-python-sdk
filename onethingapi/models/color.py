@@ -10,9 +10,11 @@ from onethingapi.api_helper import APIHelper
 class Color(object):
     """Implementation of the 'Color' model.
 
+    One colour.
+
     Attributes:
-        label (str): The model property of type str.
-        hex (str): The model property of type str.
+        label (str): The colour's name, as buyers see it.
+        hex (str): A colour as `#rrggbb`.
 
     """
 

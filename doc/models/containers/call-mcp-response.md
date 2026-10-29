@@ -20,7 +20,8 @@
 
 ```python
 value = JsonRpcResponse(
-    id='String9'
+    id=1,
+    result=jsonpickle.decode('{"content":[{"type":"text","text":"{\\"shop\\": \\"vintageskates\\"}"}],"isError":false}')
 )
 ```
 
@@ -33,7 +34,8 @@ value = JsonRpcResponse(
 ```python
 value = [
     JsonRpcResponse(
-        id='String9'
+        id=1,
+        result=jsonpickle.decode('{"content":[{"type":"text","text":"{\\"shop\\": \\"vintageskates\\"}"}],"isError":false}')
     )
 ]
 ```
