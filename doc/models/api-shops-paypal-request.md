@@ -1,0 +1,23 @@
+
+# Api Shops Paypal Request
+
+## Structure
+
+`ApiShopsPaypalRequest`
+
+## Fields
+
+| Name | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `return_url` | `str` | Optional | Platform key only. Where to send the seller after PayPal. |
+
+## Example
+
+```python
+from onethingapi.models.api_shops_paypal_request import ApiShopsPaypalRequest
+
+api_shops_paypal_request = ApiShopsPaypalRequest(
+    return_url='https://www.miriogames.com/market/manage/?g=7Hq2'
+)
+```
+

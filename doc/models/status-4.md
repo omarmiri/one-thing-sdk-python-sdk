@@ -1,0 +1,24 @@
+
+# Status 4
+
+## Enumeration
+
+`Status4`
+
+## Fields
+
+| Name |
+|  --- |
+| `CREATED` |
+| `PAID` |
+| `FAILED` |
+| `REFUNDED` |
+
+## Example
+
+```python
+from onethingapi.models.status_4 import Status4
+
+status_4 = Status4.FAILED
+```
+
